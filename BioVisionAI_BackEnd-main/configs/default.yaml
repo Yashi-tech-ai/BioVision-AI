@@ -1,0 +1,82 @@
+# BIOVISION-AI default configuration
+# Skin lesion classification & segmentation
+
+seed: 42
+device: cuda  # cuda or cpu
+
+# Data
+data:
+  root: ./data
+  image_size: 224
+  batch_size: 32
+  num_workers: 4
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+  # HAM10000 / ISIC class names (dx column mapping)
+  class_names:
+    - akiec  # actinic keratosis
+    - bcc    # basal cell carcinoma
+    - bkl    # benign keratosis
+    - df     # dermatofibroma
+    - mel    # melanoma
+    - nv     # nevus
+    - vasc   # vascular lesions
+  num_classes: 7
+
+# Preprocessing
+preprocessing:
+  resize: [224, 224]
+  normalize_mean: [0.485, 0.456, 0.406]
+  normalize_std: [0.229, 0.224, 0.225]
+  use_hair_removal: false  # DullRazor-style (optional, slower)
+
+# Augmentation (Albumentations)
+augmentation:
+  train:
+    horizontal_flip: 0.5
+    vertical_flip: 0.5
+    rotate_limit: 30
+    brightness_limit: 0.2
+    contrast_limit: 0.2
+    random_crop_scale: [0.8, 1.0]
+
+# Segmentation (optional when masks available)
+segmentation:
+  enabled: true
+  model: unet
+  in_channels: 3
+  out_channels: 1
+  epochs: 50
+  lr: 1e-4
+  loss: dice_bce  # dice + binary cross entropy
+  checkpoint_dir: ./checkpoints/segmentation
+
+# Classification
+classification:
+  backbone: efficientnet_b0
+  num_classes: 7
+  pretrained: true
+  epochs: 50
+  lr: 1e-4
+  weight_decay: 0.01
+  loss: focal  # focal or cross_entropy
+  focal_gamma: 2.0
+  use_class_weights: true
+  checkpoint_dir: ./checkpoints/classification
+  early_stopping_patience: 10
+
+# Explainability
+explainability:
+  method: grad_cam
+  target_layer: auto  # last conv layer
+
+# API
+api:
+  host: 0.0.0.0
+  port: 8000
+  model_path: ./checkpoints/classification/best.pt
+
+# Streamlit
+frontend:
+  port: 8501

@@ -1,0 +1,33 @@
+# BIOVISION-AI: Skin Lesion Detection & Classification
+# Python 3.10+
+
+# Deep Learning
+torch>=2.0.0
+torchvision>=0.15.0
+timm>=0.9.0
+
+# Image & Data
+opencv-python>=4.8.0
+numpy>=1.24.0
+pandas>=2.0.0
+Pillow>=9.5.0
+albumentations>=1.3.0
+scikit-learn>=1.2.0
+
+# Explainability
+grad-cam>=1.4.0
+
+# API & UI
+fastapi>=0.100.0
+uvicorn[standard]>=0.22.0
+python-multipart>=0.0.6
+pydantic>=2.0.0
+streamlit>=1.28.0
+
+# Visualization & Config
+matplotlib>=3.7.0
+seaborn>=0.12.0
+pyyaml>=6.0
+
+# Optional
+# monai>=1.2.0

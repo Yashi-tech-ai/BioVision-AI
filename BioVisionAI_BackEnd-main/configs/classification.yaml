@@ -1,0 +1,27 @@
+# Classification-only training config
+
+seed: 42
+device: cuda
+
+data:
+  root: ./data
+  image_size: 224
+  batch_size: 32
+  num_workers: 4
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+  num_classes: 7
+
+classification:
+  backbone: efficientnet_b0
+  num_classes: 7
+  pretrained: true
+  epochs: 50
+  lr: 1e-4
+  weight_decay: 0.01
+  loss: focal
+  focal_gamma: 2.0
+  use_class_weights: true
+  checkpoint_dir: ./checkpoints/classification
+  early_stopping_patience: 10
