@@ -1,7 +1,7 @@
 # BIOVISION-AI
 
 **AI-based skin lesion and skin cancer detection** — a production-ready academic project for dermatology decision-support using computer vision and deep learning.
-
+Developed as part of a team project.
 ## Overview
 
 BIOVISION-AI is an end-to-end system that:
